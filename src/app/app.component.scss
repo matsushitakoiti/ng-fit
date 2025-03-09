@@ -1,0 +1,27 @@
+.example-form-field {
+    width: 200px;
+  }
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; 
+  padding: 20px;
+}
+
+.delete-icon {
+    cursor: pointer;
+}
+
+.weight-input,
+.date-picker,
+.save-button,
+.weight-display {
+  width: 100%;
+  margin-bottom: 10px;
+}
+  
+.weight-form-field,
+.weight-date-form-field {
+  width: 200px;
+}  

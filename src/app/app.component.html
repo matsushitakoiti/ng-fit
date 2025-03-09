@@ -1,8 +1,47 @@
-<h1>{{title}}</h1>
-<input [(ngModel)]="weight" placeholder="Digite seu peso aqui" type="text"/> 
+<mat-toolbar>
+  <span>{{title}}</span>  
+</mat-toolbar>
+<!-- <input [(ngModel)]="weight" placeholder="Digite seu peso aqui" type="text"/>  -->
 <!-- <input (input)="updateWeight($event)" placeholder="Digite seu peso aqui" type="text"/>  -->
-<button (click)="save()">Clique aqui</button>
-<p>Seu peso é {{weight}}</p>
+<form [formGroup]="weightEntryForm">
+  <div class="data-picker">
+    <mat-form-field class="weight-date-form-field">
+      <mat-label>Escolha a data</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="date">
+      <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  </div>
+  <div class="weight-input">
+    <mat-form-field class="weight-form-field">
+      <mat-label>Peso (kg)</mat-label>
+      <input matInput type="number" formControlName="weight" required>
+    </mat-form-field>
+  </div>
+  <div class="save-button">
+    <button mat-flat-button (click)="save()" [disabled]="!weightEntryForm.valid">Salvar</button>
+  </div>
+  <!-- <div class="weight-display">
+    <p>Form: {{weightEntryForm.value|json}}</p>
+    <p>Form: {{weightEntryForm.valid}}</p>
+  </div> -->
+  <mat-list role="list">
+    @for (entry of weightEntries(); track entry.date) {
+      <mat-list-item>
+        <div matListItemTitle>Peso: {{entry.weight}}</div>
+        <div matListItemLine>Data: {{entry.date|date:'shortDate'}} 
+          <mat-icon (click)="deleteEntry(entry.date)" class="delete-icon" fontIcon="delete"></mat-icon>
+        </div>
+      </mat-list-item>
+    } @empty {
+      <mat-list-item>
+        <p>Insira o primeiro item</p>
+      </mat-list-item>
+    } 
+  </mat-list>
+</form>
+
 
 <!-- 
 {{interpolation}} 
